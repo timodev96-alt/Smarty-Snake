@@ -1,9 +1,11 @@
 General/Major :
 - Display a snake and a Fruit
+- Grid system
 - Levels system
 - Level Editor system
 - Shop system 
 - Coins system
+- Make the game responsive
 
 
 Snake:
@@ -15,3 +17,12 @@ Fruits:
 -There will be custom FRUITS!-
 - apple
 - golden apple
+
+Art:
+- Snakes skins
+- Fruit variants
+- blocks variants
+- background
+- SFX
+- Shop Menu
+- Settings Menu

@@ -1,0 +1,1 @@
+# Will contain a fruit class, All variants' code will be here!
