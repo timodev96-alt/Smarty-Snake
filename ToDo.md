@@ -1,7 +1,7 @@
 General/Major :
-- Display a snake and a Fruit
-- Grid system
-- Levels system
+- Display a snake and a Fruit - Done
+- Grid system - Done
+- Levels system - Partialy Done
 - Level Editor system
 - Shop system 
 - Coins system
@@ -9,7 +9,7 @@ General/Major :
 
 
 Snake:
-- walks a block on every press
+- walks a block on every press - Done
 - able to eat apples
 - have custom Assets
 
