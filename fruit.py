@@ -5,14 +5,14 @@ import grid
 
 class FRUIT:
     def __init__(self):
-        self.x = 5
-        self.y = 4
+        self.x = 0
+        self.y = 10
         self.pos = V2(self.x,self.y)
 
     def draw_fruit(self, surface):
         fruit_rect = pygame.Rect(
-            int(self.pos.x * grid.cell_size),
-            int(self.pos.y * grid.cell_size),
+            int(int(self.pos.x * grid.cell_size)),
+            int(int(self.pos.y * grid.cell_size)),
             grid.cell_size,
             grid.cell_size
         )

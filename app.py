@@ -1,23 +1,38 @@
 import pygame
 import sys
 
-import aesthetic , grid
+import aesthetic , grid , levels
 from fruit import FRUIT
 
-pygame.init()
 
-bg_screen = pygame.display.set_mode((grid.cell_number*grid.cell_size,grid.cell_number*grid.cell_size))
-clock = pygame.time.Clock()
+def main():
+    pygame.init()
+    bg_screen = pygame.display.set_mode((grid.cell_number*grid.cell_size,grid.cell_number*grid.cell_size))
+    clock = pygame.time.Clock()
 
-fruit_obj = FRUIT()
+    fruit_obj = FRUIT()
+    manager = levels.LevelManager()
+    manager.set_level("level1")
 
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
+    running=True
+        
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            manager.handle_event(event)
 
-    bg_screen.fill(aesthetic.bg_color)
-    fruit_obj.draw_fruit(bg_screen)
-    pygame.display.update()
-    clock.tick(60)
+        manager.update()
+        manager.draw(bg_screen)
+
+        fruit_obj.draw_fruit(bg_screen)
+
+        pygame.display.update()
+        clock.tick(60)
+    pygame.quit()
+    sys.exit()
+
+
+
+if __name__ == "__main__":
+    main()
