@@ -3,29 +3,51 @@ from pygame.math import Vector2 as V2
 import settings
 from snake import SNAKE
 from fruit import FRUIT
+from audio import Audio
 
 class BaseLevel:
     def __init__(self, manager):
         self.manager = manager
         self.bg_color = (0, 0, 0)
+        self.audio = Audio()
 
         self.snake = SNAKE()
         self.fruit = FRUIT()
 
     def handle_event(self, event):
-        if event.type == pygame.KEYDOWN:
+        if event.type == settings.SCREEN_UPDATE:
+            self.snake.move_snake()
+            self.check_collision()
+
+        elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
-                self.snake.change_direction(V2(0,-1))
-                self.snake.move_snake()
+                self.snake.change_direction(V2(0, -1))
             elif event.key == pygame.K_DOWN:
-                self.snake.change_direction(V2(0,1))
-                self.snake.move_snake()
+                self.snake.change_direction(V2(0, 1))
             elif event.key == pygame.K_LEFT:
-                self.snake.change_direction(V2(-1,0))
-                self.snake.move_snake()
+                self.snake.change_direction(V2(-1, 0))
             elif event.key == pygame.K_RIGHT:
-                self.snake.change_direction(V2(1,0))
-                self.snake.move_snake()
+                self.snake.change_direction(V2(1, 0))
+
+    def check_collision(self):
+        # Eat fruit
+        if self.snake.body[0] == self.fruit.pos:
+            self.fruit.randomize()
+            self.snake.add_block()
+            self.audio.play("ok")
+
+        # Wall collision
+        head = self.snake.body[0]
+        if not (0 <= head.x < settings.cell_number and 0 <= head.y < settings.cell_number):
+            self.game_over()
+
+        # Tail collision
+        if head in self.snake.body[1:]:
+            self.game_over()
+
+    def game_over(self):
+        self.audio.play("die")
+        self.snake.reset()
 
     def update(self):
         pass
@@ -38,12 +60,11 @@ class BaseLevel:
 class Level1(BaseLevel):
     def __init__(self, manager):
         super().__init__(manager)
-        self.bg_color = pygame.Color(175,215,70)
+        self.bg_color = pygame.Color(175, 215, 70)
 
     def handle_event(self, event):
         super().handle_event(event)
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-            print("Level 2")
             self.manager.set_level("level2")
 
 class Level2(BaseLevel):
@@ -54,7 +75,6 @@ class Level2(BaseLevel):
     def handle_event(self, event):
         super().handle_event(event)
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-            print("Level 1")
             self.manager.set_level("level1")
 
 class LevelManager:

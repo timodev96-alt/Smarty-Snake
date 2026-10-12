@@ -3,10 +3,10 @@ import sys
 
 import levels
 import settings
-from audio import Audio
 
 def main():
     pygame.init()
+    pygame.time.set_timer(settings.SCREEN_UPDATE, 150)  # <-- Snake moves every 150ms
     bg_screen = pygame.display.set_mode((settings.screen_size, settings.screen_size))
     clock = pygame.time.Clock()
 
@@ -14,7 +14,6 @@ def main():
     manager.set_level("level1")
 
     running=True
-        
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -29,8 +28,6 @@ def main():
 
     pygame.quit()
     sys.exit()
-
-
 
 if __name__ == "__main__":
     main()
