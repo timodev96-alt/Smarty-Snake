@@ -3,6 +3,7 @@ import sys
 
 import levels
 import settings
+from audio import Audio
 
 def main():
     pygame.init()
